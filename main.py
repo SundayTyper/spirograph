@@ -1,16 +1,17 @@
 import turtleWindow as tw
 import outerCricle as oc
 import spiral as sp
+from PIL import Image
 
 def main():
-    drawingDisc = getSpiralRadius()
-    spiralRadius = getSpirographHole(drawingDisc)
-
+    drawingDiscRadius = getSpiralRadius()
+    spiralRadius = getSpirographHole(drawingDiscRadius)
+    radiusRatio = 500/drawingDiscRadius
+    numberOfPens = getPens()
     screen = tw.Window()
     base = oc.outerCircle()
-    spiralGraph = sp.spirograph(drawingDisc, spiralRadius)
-    spiralGraph.main()
-
+    spiralGraph = sp.spirograph(drawingDiscRadius, spiralRadius, radiusRatio, numberOfPens)
+    saveImage(screen)
 
 def getSpiralRadius():
     print("What size do you want the spiral to be?")
@@ -23,6 +24,23 @@ def getSpiralRadius():
         print("Please choose a number between 0 and 500. ")
         getSpiralRadius()
     return radius
+
+def saveImage(screen):
+    canvas = screen.getcanvas()
+    canvas.postscript(file="spiral.eps")
+    img = Image.open("spiral.eps")
+    img.save("spiral.jpg")
+
+def getPens():
+    try:
+        pens = int(input("How many pens would you like to use? "))
+    except ValueError:
+        print("Please use a whole number ")
+        getPens()
+    if pens <= 0:
+        print("Please use at least one pen ")
+        getPens()
+    return pens
 
 def getSpirographHole(radius):
     choice = input("Please choose a length to draw from: \
