@@ -1,7 +1,7 @@
+import turtle
 import turtleWindow as tw
 import outerCricle as oc
 import spiral as sp
-from PIL import Image
 
 def main():
     drawingDiscRadius = getSpiralRadius()
@@ -11,7 +11,7 @@ def main():
     screen = tw.Window()
     base = oc.outerCircle()
     spiralGraph = sp.spirograph(drawingDiscRadius, spiralRadius, radiusRatio, numberOfPens)
-    saveImage(screen)
+    saveImage()
 
 def getSpiralRadius():
     print("What size do you want the spiral to be?")
@@ -25,11 +25,9 @@ def getSpiralRadius():
         getSpiralRadius()
     return radius
 
-def saveImage(screen):
-    canvas = screen.getcanvas()
-    canvas.postscript(file="spiral.eps")
-    img = Image.open("spiral.eps")
-    img.save("spiral.jpg")
+def saveImage():
+    screen = turtle.getscreen()
+    screen.getcanvas().postscript(file="spiral.eps")
 
 def getPens():
     try:

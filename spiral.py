@@ -25,11 +25,11 @@ class spirograph:
         while True:
             for i in range(numberOfPens):
                 self.turtles[i] = self.drawRotation(i, radiusRatio, rotationPos)
-                rotationPos = self.migrateSpirographCentre(1)
+            rotationPos = self.migrateSpirographCentre(1)
 
             steps += 1
-            # stop after 50 full rotations
-            if steps >= 18000:
+            # stop after 20 full rotations
+            if steps >= 5200:
                 break
 
 
